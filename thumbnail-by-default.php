@@ -31,7 +31,7 @@ add_filter('post_thumbnail_html', 'thumbnail_by_default_html', 10, 5);
  */
 function thumbnail_by_default_html($html, $post_id, $thumbnail_id, $size, $attr)
 {
-    if ( !empty($html) && !$thumbnail_id) {
+    if (!empty($html) && !$thumbnail_id) {
         $html = wp_get_attachment_image(11, $size, false, $attr);
     }
 
@@ -45,7 +45,7 @@ function thumbnail_by_default_html($html, $post_id, $thumbnail_id, $size, $attr)
 add_filter('has_post_thumbnail', 'thumbnail_by_default_has_post_thumbnail', 10, 3);
 
 /**
- * Always return true for an post image
+ * Always return true for an post image. Work only for articles.
  *
  * @param $has_thumbnail
  * @param $post
@@ -59,4 +59,16 @@ function thumbnail_by_default_has_post_thumbnail($has_thumbnail, $post, $thumbna
     }
 
     return $has_thumbnail;
+}
+
+/**
+ * Setting into theme customizer
+ * https://developer.wordpress.org/themes/customize-api/customizer-objects/
+ * Use instance of customize_register hook
+ */
+
+add_action('customize_register', 'thumbnail_by_default_customize_register', 10, 1);
+function thumbnail_by_default_customize_register($wp_customize)
+{
+    
 }
