@@ -70,5 +70,21 @@ function thumbnail_by_default_has_post_thumbnail($has_thumbnail, $post, $thumbna
 add_action('customize_register', 'thumbnail_by_default_customize_register', 10, 1);
 function thumbnail_by_default_customize_register($wp_customize)
 {
-    
+    $wp_customize->add_section( 'thumbnail_by_default_settings', array(
+        'title' => __( 'Thumbnail By Default', 'thumbnail-by-default' ),
+        'description' => __( 'Ajouter du CSS ici', 'thumbnail-by-default' ),
+      ) );
+
+      $wp_customize->add_setting( 'thumbnail_by_default_id', array(
+        'type' => 'option', // or 'theme_mod'
+        'default' => '',
+        'sanitize_callback' => 'absint',
+      ) );
+
+      $wp_customize->add_control( 'thumbnail_by_default_id', array(
+        'type' => 'number',
+        'section' => 'thumbnail_by_default_settings',
+        'label' => __( 'Image par défaut des articles', 'thumbnail-by-default' ),
+        'description' => __( 'Entrer un identifiant de l\'image par défaut.', 'thumbnail-by-default' ),
+      ) );
 }
